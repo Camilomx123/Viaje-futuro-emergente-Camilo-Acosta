@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medellín 2035: Horizonte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #0f1829;
+            color: #e2eaf4;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        #viewport-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+            pointer-events: none; 
+        }
+
+        #scroller-space {
+            position: relative;
+            z-index: 20;
+            width: 100%;
+        }
+
+        .scroll-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            box-sizing: border-box;
+            z-index: 25;
+            padding: 6rem 2rem;
+        }
+
+        .projected-text {
+            text-shadow: 0 2px 15px rgba(12, 18, 31, 0.9), 0 0 30px rgba(0, 240, 255, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: transform, opacity;
+        }
+
+        @keyframes pulse-video-border {
+            0%, 100% { border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+            50% { border-color: rgba(0, 240, 255, 1); box-shadow: 0 0 35px rgba(0, 240, 255, 0.7); transform: scale(1.02); }
+        }
+        .video-action-btn {
+            animation: pulse-video-border 2s infinite ease-in-out;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.3);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LIENZO URBANO INTERACTIVO -->
+    <canvas id="viewport-canvas"></canvas>
+
+    <div id="scroller-space">
+
+        <!-- ================= FASE 1: PORTADA ================= -->
+        <section class="scroll-section items-center justify-center text-center px-4">
+            <div class="max-w-4xl projected-text" id="node-portada">
+                <span class="font-display text-xs font-bold tracking-[0.3em] text-cyan-400 block uppercase mb-4">// PROYECTO DE REFLEXIÓN PROSPÉCTICA</span>
+                <h1 class="font-display text-5xl md:text-7xl font-light text-white uppercase tracking-wider mb-6">
+                    MEDELLÍN <span class="text-cyan-400 font-medium">2035</span>
+                </h1>
+                <div class="w-24 h-[2px] bg-cyan-400 mx-auto mb-6"></div>
+                <p class="font-display text-lg md:text-xl tracking-widest text-slate-300 uppercase font-light">
+                    Horizonte: Liderazgo Humano en la Era de la IA
+                </p>
+            </div>
+            <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center text-[10px] tracking-[0.2em] font-display text-cyan-300 uppercase opacity-80">
+                Desplace hacia abajo para iniciar la lectura <br> 
+                <i class="fa-solid fa-chevron-down mt-3 text-xs animate-bounce"></i>
+            </div>
+        </section>
+
+        <!-- ================= FASE 2: TEXTO COMPLETO CONTINUO ================= -->
+        <section class="scroll-section px-6 lg:px-32 justify-start items-center">
+            <div class="max-w-4xl projected-text space-y-8 text-justify text-base md:text-lg leading-relaxed text-slate-200" id="node-texto">
+                <span class="font-display text-xs font-semibold tracking-widest text-cyan-400 block uppercase text-center md:text-left mb-2">// NARRATIVA ACADÉMICA CONTINUA</span>
+                
+                <p>
+                    En el año 2035, Medellín es reconocida como una de las ciudades más avanzadas de América Latina en la integración de la Inteligencia Artificial. Los rascacielos inteligentes administran el consumo energético en tiempo real, el transporte autónomo conecta toda el área metropolitana y la mayoría de las organizaciones toman decisiones apoyadas por sistemas predictivos capaces de analizar millones de datos en cuestión de segundos. Este escenario se fundamenta en las tendencias tecnológicas identificadas por Gartner (2024), que proyectan una creciente integración de la inteligencia artificial en todos los sectores productivos, y en las transformaciones del mercado laboral descritas por el World Economic Forum (2023). La tecnología transformó la economía al aumentar la productividad, reducir costos y acelerar la innovación, mientras que los gobiernos implementaron regulaciones para garantizar un uso responsable de la IA, tal como plantea la OECD (2023). Sin embargo, ese progreso también dejó al descubierto un problema que pocos habían previsto: muchas empresas comenzaron a confiar más en los algoritmos que en las personas.
+                </p>
+                
+                <p>
+                    Las decisiones sobre contratación, inversión, crédito e incluso estrategias empresariales eran tomadas casi exclusivamente por modelos de Inteligencia Artificial. Aunque los resultados parecían eficientes, lentamente se perdió la capacidad de comprender las realidades humanas que existían detrás de cada indicador. Miles de pequeños emprendedores quedaron en desventaja porque no contaban con los recursos necesarios para acceder a estas tecnologías o porque los algoritmos no comprendían las particularidades de sus negocios. Esta situación refleja uno de los desafíos planteados por Brynjolfsson y McAfee (2014), quienes explican que la revolución tecnológica puede incrementar la productividad, pero también profundizar desigualdades si no se acompaña de estrategias orientadas al bienestar social.
+                </p>
+                
+                <p>
+                    Como administrador de empresas entendí que el verdadero desafío no consistía en competir contra la Inteligencia Artificial, sino en aprender a utilizarla de manera responsable para fortalecer a las personas. Fue entonces cuando lideré la creación de Horizonte, una plataforma diseñada para que pequeños emprendedores pudieran acceder a herramientas avanzadas de IA sin perder el control sobre sus decisiones. Horizonte analizaba mercados, proyectaba escenarios financieros y proponía estrategias comerciales, pero siempre dejaba la decisión final en manos de quien conocía realmente su empresa. La tecnología dejaba de reemplazar el criterio humano para convertirse en un aliado que potenciaba el conocimiento, la creatividad y la experiencia de cada emprendedor, siguiendo el principio de que los sistemas inteligentes deben apoyar la toma de decisiones humanas y no sustituirla, como señalan Russell y Norvig (2021).
+                </p>
+                
+                <p>
+                    La inspiración para construir este escenario nació de una tendencia que ya está transformando el presente: el crecimiento de la Inteligencia Artificial Generativa y de los sistemas inteligentes capaces de apoyar procesos de gestión empresarial. Diversos estudios de Gartner (2024), la OECD (2023) y el World Economic Forum (2023) muestran que estas tecnologías modificarán profundamente el empleo, la administración y la toma de decisiones durante la próxima década. Más que imaginar un futuro lejano, este relato representa una posible evolución de cambios que ya comenzaron y que seguirán acelerándose en los próximos años.
+                </p>
+                
+                <p>
+                    Elegí esta tendencia porque considero que marcará el futuro de la administración de empresas. Me desafía pensar cómo mantener el equilibrio entre la eficiencia tecnológica y la responsabilidad ética, especialmente cuando las decisiones afectan directamente la vida de las personas. Mi proyecto de vida profesional está orientado a liderar procesos de transformación organizacional apoyados en el análisis de datos y las nuevas tecnologías, pero siempre desde una visión humana. Creo que el administrador del futuro deberá comprender la Inteligencia Artificial, sin olvidar que ninguna herramienta puede reemplazar el juicio, la empatía ni la capacidad de construir confianza dentro de una organización.
+                </p>
+                
+                <p>
+                    Este ejercicio también me permitió descubrir que la profesión del administrador evolucionará mucho más allá de gestionar recursos o maximizar utilidades. Su responsabilidad será conectar la innovación con el bienestar social y garantizar que la tecnología contribuya al desarrollo sostenible de las organizaciones y de las comunidades. El mayor reto fue imaginar un futuro suficientemente innovador sin caer en la idea de que la tecnología resolverá todos los problemas por sí sola. Comprendí que el cambio más importante no dependerá de la velocidad con la que avance la Inteligencia Artificial, sino de la forma en que las personas decidamos utilizarla, una visión coherente con los planteamientos sobre el desarrollo responsable de la IA expuestos por la OECD (2023).
+                </p>
+                
+                <p>
+                    Al finalizar este viaje hacia el año 2035 confirmó que quiero ser un profesional capaz de liderar ese equilibrio entre innovación y humanidad. Fortalecí mi capacidad para analizar tendencias, proyectar escenarios futuros y reflexionar sobre las implicaciones éticas de la transformación digital. Entendí que el éxito de una empresa no se medirá únicamente por sus indicadores financieros, sino también por el impacto positivo que genere en la sociedad. Por eso, imagino un futuro donde la Inteligencia Artificial sea una herramienta poderosa, pero donde el liderazgo humano continúe siendo el elemento que dé sentido a cada decisión. En ese futuro, Horizonte no representa solamente una plataforma tecnológica, sino la convicción de que el progreso solo tiene verdadero valor cuando mejora la vida de las personas.
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= FASE 3: REFLEXIÓN (NUEVA SECCIÓN) ================= -->
+        <section class="scroll-section px-6 lg:px-32 justify-start items-center">
+            <div class="max-w-4xl projected-text space-y-8 text-justify text-base md:text-lg leading-relaxed text-slate-200" id="node-reflexion">
+                <div class="text-center md:text-left border-l-2 border-cyan-400 pl-4 mb-6">
+                    <span class="font-display text-xs font-bold tracking-[0.3em] text-cyan-400 block uppercase">// CONCLUSIÓN CRÍTICA</span>
+                    <h2 class="font-display text-3xl md:text-4xl font-light text-white uppercase tracking-wider mt-1">Reflexión</h2>
+                </div>
+                
+                <p>
+                    Este viaje hacia el año 2035 me permitió comprender que el futuro de la administración de empresas no dependerá únicamente del avance de la Inteligencia Artificial, sino de la capacidad de las personas para utilizarla con criterio, ética y responsabilidad. Descubrí que mi propósito profesional no es competir con la tecnología, sino liderar organizaciones donde la innovación siempre esté al servicio del bienestar humano.
+                </p>
+                
+                <p>
+                    El mayor reto fue imaginar un futuro suficientemente innovador sin perder de vista la realidad que hoy empezamos a construir. Analizar las tendencias actuales y proyectarlas hacia el 2035 me permitió desarrollar una visión más crítica sobre el impacto que tendrá la IA en las empresas y en la sociedad.
+                </p>
+                
+                <p>
+                    Esta experiencia fortaleció mi pensamiento estratégico, mi capacidad para analizar el entorno y mi creatividad para proponer soluciones a problemas complejos. También reafirmó la importancia del liderazgo ético como una competencia esencial para el administrador del futuro. Al finalizar este ejercicio confirmé que quiero contribuir a la construcción de organizaciones donde la tecnología impulse el progreso, pero donde las personas continúen siendo el centro de cada decisión.
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= FASE 4: VIDEO COMPONENTE ================= -->
+        <section class="scroll-section px-6 lg:px-24 justify-center items-center">
+            <div class="w-full max-w-4xl text-center border-l-4 border-cyan-400 bg-cyan-950/20 py-16 px-8 rounded-r-lg projected-text" id="node-video">
+                <span class="font-display text-xs font-bold tracking-widest text-cyan-400 block uppercase mb-4">
+                    <i class="fa-solid fa-triangle-exclamation mr-2 text-sm text-cyan-300"></i> ACCESO OBLIGATORIO A LA SIMULACIÓN AURAL
+                </span>
+                <h2 class="font-display text-3xl md:text-5xl font-light text-white uppercase tracking-wider mb-6">
+                    Sustentación Multimedia Horizonte 2035
+                </h2>
+                <p class="text-slate-300 font-light text-base md:text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Para validar los escenarios de gobernanza ética y observar la interfaz cognitiva en funcionamiento real narrada por IA, **es mandatorio abrir y examinar el contenido multimedia adjunto antes de finalizar la evaluación**.
+                </p>
+                
+                <a href="https://app.heygen.com/videos/2035-liderazgo-humano-en-la-era-de-la-ia-29d16dd5b6c9425ab5e5a5e8be38ceb2" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="video-action-btn inline-flex items-center space-x-4 text-white font-display text-sm font-medium tracking-widest uppercase py-6 px-12 bg-cyan-950/60 border-2 border-cyan-400 rounded-sm transition-all duration-300 hover:bg-white hover:text-black hover:border-white">
+                    <i class="fa-solid fa-circle-play text-cyan-400 text-lg"></i>
+                    <span>ABRIR TRANSMISIÓN AUDIOVISUAL AQUÍ</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ================= FASE 5: FUENTES ================= -->
+        <section class="scroll-section px-6 lg:px-24 justify-center">
+            <div class="w-full max-w-5xl projected-text" id="node-fuentes">
+                <div class="mb-8 text-center md:text-left border-b border-cyan-500/20 pb-4">
+                    <span class="font-display text-xs tracking-widest text-cyan-400 uppercase block">Sustento de Tendencias</span>
+                    <h3 class="font-display text-xl text-white uppercase tracking-wider mt-1">Referencias Fuentes APA 7</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-[11px] font-light text-slate-400 leading-relaxed">
+                    <div class="space-y-1">
+                        <span class="text-cyan-400 block font-mono text-[10px] tracking-wider">[REF-01]</span>
+                        <p>Brynjolfsson, E., & McAfee, A. (2014). <em>The Second Machine Age: Work, Progress, and Prosperity in a Time of Brilliant Technologies</em>. W. W. Norton & Company.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-cyan-400 block font-mono text-[10px] tracking-wider">[REF-02]</span>
+                        <p>Gartner. (2024). <em>Top Strategic Technology Trends for 2025</em>. Gartner Research.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-cyan-400 block font-mono text-[10px] tracking-wider">[REF-03]</span>
+                        <p>OECD. (2023). <em>Artificial Intelligence in Society</em>. OECD Publishing.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-cyan-400 block font-mono text-[10px] tracking-wider">[REF-04]</span>
+                        <p>Russell, S., & Norvig, P. (2021). <em>Artificial Intelligence: A Modern Approach</em> (4th ed.). Pearson.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-cyan-400 block font-mono text-[10px] tracking-wider">[REF-05]</span>
+                        <p>World Economic Forum. (2023). <em>Future of Jobs Report 2023</em>. WEF Publications.</p>
+                    </div>
+                    <div class="flex flex-col justify-end text-center md:text-right pt-6 md:pt-0">
+                        <span class="text-white font-display text-xs uppercase block font-medium">Camilo Acosta Joyas</span>
+                        <span class="text-[10px] text-cyan-400 font-mono">CEIPA Business School</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="w-full py-6 text-center text-[10px] font-display tracking-widest text-cyan-300/40 bg-[#0a101d] relative z-30 uppercase border-t border-cyan-500/10">
+        Horizonte 2035 &bull; Ceipa Business School &bull; Liderazgo Humano
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const canvas = document.getElementById('viewport-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const camera = { yOffset: 0, zoom: 1, interiorAlpha: 0 };
+        const buildingCount = 24;
+        const buildings = [];
+        
+        for (let i = 0; i < buildingCount; i++) {
+            buildings.push({
+                x: (width / buildingCount) * i + (Math.random() - 0.5) * 35,
+                width: 130 + Math.random() * 100,
+                height: 480 + Math.random() * 380,
+                depthFactor: 0.45 + (i % 3) * 0.18,
+                windowSeed: Array.from({length: 30}, () => Math.random() > 0.35),
+                blinkOffset: Math.random() * 150
+            });
+        }
+
+        const drones = Array.from({length: 8}, () => ({
+            x: Math.random() * width,
+            y: Math.random() * (height * 0.4),
+            speed: 1.1 + Math.random() * 1.6,
+            size: 2.8,
+            direction: Math.random() > 0.5 ? 1 : -1
+        }));
+
+        function drawScene() {
+            ctx.clearRect(0, 0, width, height);
+
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
+            skyGrad.addColorStop(0, '#0d1624');
+            skyGrad.addColorStop(0.5, '#17253b');
+            skyGrad.addColorStop(1, '#273d5c'); 
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.save();
+            ctx.translate(0, camera.yOffset * 0.35); 
+            
+            buildings.forEach((b, idx) => {
+                const currentY = (height - b.height) + (camera.yOffset * (1 - b.depthFactor));
+                const centerX = width / 2;
+                const shiftedX = centerX + (b.x - centerX) * camera.zoom;
+                const currentWidth = b.width * camera.zoom;
+
+                ctx.fillStyle = `rgba(30, 47, 74, ${0.65 + b.depthFactor * 0.3})`;
+                ctx.strokeStyle = `rgba(0, 240, 255, 0.08)`;
+                ctx.fillRect(shiftedX, currentY, currentWidth, b.height * camera.zoom);
+                ctx.strokeRect(shiftedX, currentY, currentWidth, b.height * camera.zoom);
+
+                ctx.fillStyle = `rgba(0, 240, 255, ${0.16 + Math.sin(Date.now() * 0.0013 + b.blinkOffset) * 0.05})`;
+                const wCols = 3;
+                const wRows = 8;
+                const wW = currentWidth / (wCols * 3);
+                const wH = (b.height * camera.zoom) / (wRows * 4);
+
+                for (let r = 0; r < wRows; r++) {
+                    for (let c = 0; c < wCols; c++) {
+                        if (b.windowSeed[(r * wCols + c) % b.windowSeed.length]) {
+                            const wx = shiftedX + wW + c * (wW * 2.5);
+                            const wy = currentY + wH + r * (wH * 3.5);
+                            if (wy < height) ctx.fillRect(wx, wy, wW, wH);
+                        }
+                    }
+                }
+
+                // ================= MEGA PROYECCIONES HOLOGRÁFICAS CELESTES =================
+                // Posicionadas de forma segura en el tercio superior de la pantalla, completamente desconectadas de las azoteas
+                if (idx === Math.floor(buildingCount / 2) - 4) {
+                    ctx.save();
+                    ctx.shadowColor = "rgba(0, 240, 255, 1)";
+                    ctx.shadowBlur = 40; 
+                    
+                    // Línea de Escaneo Dinámica
+                    let scanLine = Math.sin(Date.now() * 0.004) * 35;
+                    
+                    ctx.font = "600 36px 'Space Grotesk'";
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+                    ctx.fillText("CAMILO ACOSTA JOYAS", shiftedX - 100, height * 0.18 + scanLine * 0.05);
+                    
+                    ctx.font = "500 14px 'Inter'";
+                    ctx.fillStyle = "rgba(0, 250, 255, 1)";
+                    ctx.shadowBlur = 15;
+                    ctx.fillText("ADMINISTRADOR DE EMPRESAS", shiftedX - 100, height * 0.23);
+                    
+                    // Geometría de anclaje de señal sintética
+                    ctx.strokeStyle = "rgba(0, 240, 255, 0.4)";
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(shiftedX - 115, height * 0.13, 440, 95);
+                    ctx.restore();
+                }
+
+                if (idx === Math.floor(buildingCount / 2) + 2) {
+                    ctx.save();
+                    ctx.shadowColor = "rgba(0, 240, 255, 1)";
+                    ctx.shadowBlur = 50; 
+                    
+                    ctx.font = "600 46px 'Space Grotesk'";
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillText("HORIZONTE", shiftedX - 20, height * 0.19);
+                    
+                    ctx.font = "500 12px 'Space Grotesk'";
+                    ctx.fillStyle = "rgba(180, 245, 255, 1)";
+                    ctx.shadowBlur = 10;
+                    ctx.fillText("PLATAFORMA COGNITIVA ABIERTA // 2035", shiftedX - 20, height * 0.24);
+
+                    // Haz de luz vertical emitiendo al infinito
+                    let gradientGlow = ctx.createLinearGradient(shiftedX + 80, height * 0.05, shiftedX + 80, height * 0.3);
+                    gradientGlow.addColorStop(0, "rgba(0, 240, 255, 0)");
+                    gradientGlow.addColorStop(0.5, "rgba(0, 240, 255, 0.25)");
+                    gradientGlow.addColorStop(1, "rgba(0, 240, 255, 0)");
+                    ctx.fillStyle = gradientGlow;
+                    ctx.fillRect(shiftedX - 40, height * 0.05, 320, height * 0.25);
+                    
+                    ctx.restore();
+                }
+            });
+
+            drones.forEach(d => {
+                d.x += d.speed * d.direction;
+                if (d.x > width + 40 || d.x < -40) d.direction *= -1;
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.85)';
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            ctx.restore();
+
+            if (camera.interiorAlpha > 0) {
+                ctx.save();
+                ctx.fillStyle = `rgba(15, 24, 41, ${camera.interiorAlpha})`;
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.strokeStyle = `rgba(0, 240, 255, ${camera.interiorAlpha * 0.15})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(0, 0); ctx.lineTo(width * 0.3, height * 0.25);
+                ctx.lineTo(width * 0.7, height * 0.25); ctx.lineTo(width, 0);
+                ctx.moveTo(0, height); ctx.lineTo(width * 0.3, height * 0.75);
+                ctx.lineTo(width * 0.7, height * 0.75); ctx.lineTo(width, height);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            requestAnimationFrame(drawScene);
+        }
+
+        drawScene();
+
+        const timeline = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#scroller-space",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.2
+            }
+        });
+
+        timeline.to(camera, { yOffset: -300, zoom: 1.2, duration: 2.5 })
+                .to(camera, { interiorAlpha: 0.96, yOffset: -500, zoom: 1.5, duration: 4 })
+                .to(camera, { interiorAlpha: 1, duration: 1.5 });
+
+        const nodes = ["#node-portada", "#node-texto", "#node-reflexion", "#node-video", "#node-fuentes"];
+        nodes.forEach((n, i) => {
+            gsap.to(n, {
+                scrollTrigger: {
+                    trigger: document.querySelectorAll(".scroll-section")[i],
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8
+            });
+        });
+    </script>
+</body>
+</html>
